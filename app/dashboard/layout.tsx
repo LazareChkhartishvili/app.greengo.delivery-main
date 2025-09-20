@@ -6,18 +6,20 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { useSession } from 'next-auth/react';
 import { api } from '@/services';
 import { useEffect, useState } from 'react';
+import { SingleUserI } from '@/types';
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<SingleUserI | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (session?.user?.data?.token) {
+      const userSession = session as any;
+      if (userSession?.user?.data?.token) {
         try {
           const data = await api.services.users.getSingleUser(
-            session.user.data.token,
+            userSession.user.data.token,
             '1'
           );
           setUserData(data?.data);
