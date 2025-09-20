@@ -20,7 +20,7 @@ import { dataNav } from '@/routes';
 import { SingleUserI } from '@/types';
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  userData: SingleUserI;
+  userData?: SingleUserI;
 }
 
 export function AppSidebar({ userData, ...props }: AppSidebarProps) {

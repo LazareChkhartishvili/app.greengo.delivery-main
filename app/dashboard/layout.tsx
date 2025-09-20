@@ -10,7 +10,7 @@ import { SingleUserI } from '@/types';
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
-  const [userData, setUserData] = useState<SingleUserI | null>(null);
+  const [userData, setUserData] = useState<SingleUserI | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

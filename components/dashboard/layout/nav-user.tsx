@@ -31,7 +31,7 @@ import { signOut } from 'next-auth/react';
 import { routes } from '@/routes';
 import { SingleUserI } from '@/types';
 
-export function NavUser({ user }: { user: SingleUserI }) {
+export function NavUser({ user }: { user?: SingleUserI }) {
   const { isMobile } = useSidebar();
 
   return (
