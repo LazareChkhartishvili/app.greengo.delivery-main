@@ -497,9 +497,12 @@ export const api = {
         console.log('Token:', token);
         console.log('Original companyData:', companyData);
         console.log('FormData entries:');
-        for (const [key, value] of formData.entries()) {
-          console.log(`${key}: ${value} (type: ${typeof value})`);
-        }
+        // Convert FormData to object for logging
+        const formDataObj: Record<string, any> = {};
+        formData.forEach((value, key) => {
+          formDataObj[key] = value;
+        });
+        console.log('FormData object:', formDataObj);
 
         const response = await fetch(
           `https://greengo-api-production.up.railway.app/api/${url}`,
