@@ -7,7 +7,7 @@ export const createEditCompanySchema = z.object({
   name_en: z.string().optional(),
   description_ka: z.string().optional(),
   description_en: z.string().optional(),
-  status: z.any().optional(),
+  status: z.boolean().optional(),
   picture: z.any().optional(),
 
   city_id: z.string().min(1, { message: VALIDATION_MESSAGES.required }),

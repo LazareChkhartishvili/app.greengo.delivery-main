@@ -45,7 +45,7 @@ const useCreateEditForm = (token: string, data?: any, id?: string) => {
     soc_facebook: data?.soc_facebook || '',
     soc_instagram: data?.soc_instagram || '',
     soc_youtobe: data?.soc_youtobe || '',
-    status: data?.status,
+    status: data?.status === 1, // Convert number to boolean for Switch component
     picture: data?.picture || '',
   };
 
@@ -108,9 +108,12 @@ const useCreateEditForm = (token: string, data?: any, id?: string) => {
 
       const dataToSend = {
         ...data,
-        status: data.status ? '1' : '0',
+        status: data.status ? 1 : 0, // Convert boolean to number for API
         picture: files[0] || data.picture,
       };
+
+      console.log('Sending data to API:', dataToSend);
+      console.log('Status value being sent:', dataToSend.status);
 
       const response = await api.services.company.createEditCompany(
         token,
@@ -121,8 +124,8 @@ const useCreateEditForm = (token: string, data?: any, id?: string) => {
       if (response?.ok) {
         setLoading(false);
         toast.success(MESSAGES.success);
-        router.replace(routes.company.company);
-        router.refresh();
+        // Force refresh the page to get updated data
+        window.location.href = routes.company.company;
       }
       if (!response.ok) {
         setLoading(false);

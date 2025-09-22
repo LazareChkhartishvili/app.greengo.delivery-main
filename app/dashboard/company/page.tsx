@@ -40,6 +40,8 @@ function RolePage() {
       if (token) {
         try {
           const data = await api.services.company.getCompany(token);
+          console.log('Company data from API:', data);
+          console.log('First company status:', data?.data?.[0]?.status);
           setCompanyData(data);
         } catch (error) {
           console.error('Error fetching company data:', error);

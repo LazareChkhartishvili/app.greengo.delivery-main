@@ -90,6 +90,12 @@ export interface CompanyIRoot {
   message: string;
 }
 
+export interface CompanyIRootObject {
+  success: boolean;
+  data: CompanyI;
+  message: string;
+}
+
 export interface CompanyI {
   id: number;
   name_ka: string;

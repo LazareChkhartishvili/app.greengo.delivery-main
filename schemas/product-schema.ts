@@ -7,7 +7,7 @@ export const createEditProductSchema = z.object({
   name_en: z.string().optional(),
   description_ka: z.string().optional(),
   description_en: z.string().optional(),
-  status: z.any().optional(),
+  status: z.boolean().optional(),
   picture: z.any().optional(),
 
   product_category_id: z

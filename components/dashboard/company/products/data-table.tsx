@@ -70,7 +70,7 @@ export const schema = z.object({
   old_price: z.string(),
   picture: z.string(),
   show_count: z.string(),
-  status: z.number(),
+  status: z.union([z.boolean(), z.number()]),
   company_id: z.number(),
 });
 
@@ -78,17 +78,28 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'status',
     header: () => <p className="font">სტატუსი</p>,
-    cell: ({ row }) => (
-      <div className="w-32">
-        <div
-          className={`px-1.5  ${
-            row.original.status === 1 ? 'text-green-500' : 'text-red-500'
-          }`}
-        >
-          {row.original.status === 1 ? 'აქტიური' : 'არაქტიური'}
+    cell: ({ row }) => {
+      console.log(
+        `Product ${row.original.name_ka} status:`,
+        row.original.status,
+        'type:',
+        typeof row.original.status
+      );
+      // Handle both boolean and number status values
+      const isActive =
+        row.original.status === true || row.original.status === 1;
+      return (
+        <div className="w-32">
+          <div
+            className={`px-1.5  ${
+              isActive ? 'text-green-500' : 'text-red-500'
+            }`}
+          >
+            {isActive ? 'აქტიური' : 'არაქტიური'}
+          </div>
         </div>
-      </div>
-    ),
+      );
+    },
   },
 
   {

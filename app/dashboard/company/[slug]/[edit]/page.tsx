@@ -34,6 +34,9 @@ async function EditPage({ params }: { params: Promise<{ slug: string }> }) {
     api.services.city.getCity(token),
   ]);
 
+  console.log('Single company data from API:', data);
+  console.log('Company status from API:', data?.data?.status);
+
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>

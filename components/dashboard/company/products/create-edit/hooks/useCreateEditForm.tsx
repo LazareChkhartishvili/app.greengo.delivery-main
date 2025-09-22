@@ -42,7 +42,7 @@ const useCreateEditForm = (
     product_category_id: data?.product_category_id?.toString() || '',
     price: data?.price || '',
     old_price: data?.old_price || '',
-    status: data?.status,
+    status: data?.status === 1, // Convert number to boolean for Switch component
     picture: data?.picture || '',
   };
 
@@ -101,7 +101,7 @@ const useCreateEditForm = (
 
       const dataToSend = {
         ...data,
-        status: data.status ? '1' : '0',
+        status: data.status ? 1 : 0, // Convert boolean to number for API
         picture: files[0] || data.picture,
         company_id: id,
       };

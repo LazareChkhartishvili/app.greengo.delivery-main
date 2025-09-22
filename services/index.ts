@@ -7,6 +7,7 @@ import {
   CompanyCategoryIRoot,
   CompanyCategoryIRootObject,
   CompanyIRoot,
+  CompanyIRootObject,
   ProductCategoryIRoot,
   ProductIRoot,
   ProductIRootObject,
@@ -446,7 +447,7 @@ export const api = {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-        const data = (await response.json()) as CategoryIRootObject;
+        const data = (await response.json()) as CompanyIRootObject;
         return data;
       },
 
@@ -475,10 +476,13 @@ export const api = {
         const formData = new FormData();
         for (const key in companyData) {
           if (companyData[key as keyof typeof companyData] != null) {
-            formData.append(
-              key,
-              companyData[key as keyof typeof companyData] as string
-            );
+            const value = companyData[key as keyof typeof companyData];
+            // Ensure status is sent as string "1" or "0"
+            if (key === 'status') {
+              formData.append(key, value ? '1' : '0');
+            } else {
+              formData.append(key, value as string);
+            }
           }
         }
 
@@ -491,7 +495,11 @@ export const api = {
           `https://greengo-api-production.up.railway.app/api/${url}`
         );
         console.log('Token:', token);
-        console.log('FormData:', formData);
+        console.log('Original companyData:', companyData);
+        console.log('FormData entries:');
+        for (const [key, value] of formData.entries()) {
+          console.log(`${key}: ${value} (type: ${typeof value})`);
+        }
 
         const response = await fetch(
           `https://greengo-api-production.up.railway.app/api/${url}`,
@@ -616,10 +624,13 @@ export const api = {
         const formData = new FormData();
         for (const key in productData) {
           if (productData[key as keyof typeof productData] != null) {
-            formData.append(
-              key,
-              productData[key as keyof typeof productData] as string
-            );
+            const value = productData[key as keyof typeof productData];
+            // Ensure status is sent as string "1" or "0"
+            if (key === 'status') {
+              formData.append(key, value ? '1' : '0');
+            } else {
+              formData.append(key, value as string);
+            }
           }
         }
 
