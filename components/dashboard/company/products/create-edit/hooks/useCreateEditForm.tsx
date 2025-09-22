@@ -101,7 +101,7 @@ const useCreateEditForm = (
 
       const dataToSend = {
         ...data,
-        status: data.status ? 1 : 0, // Convert boolean to number for API
+        status: data.status, // Keep as boolean for API function
         picture: files[0] || data.picture,
         company_id: id,
       };
